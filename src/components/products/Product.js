@@ -15,6 +15,7 @@ class Product extends Component {
         this.state = {};
         this.renderPrice = this.renderPrice.bind(this);
         this.renderProduct = this.renderProduct.bind(this);
+        this.renderProductInfo = this.renderProductInfo.bind(this);
     }
 
     renderPrice() {
@@ -23,21 +24,36 @@ class Product extends Component {
         return <p>{currency.amount} <CurrencySign currency={currency.currency}/></p>;
     }
 
+    renderProductInfo() {
+        return (
+            <React.Fragment>
+                <img className="product_image" src={this.props.image} alt=""/>
+                <img className="product_cart_icon" src="./img/cart.png" alt=""/>
+                <p className="product_card_title">{this.props.title}</p>
+                <span className="product_card_price">{this.renderPrice()}</span>
+            </React.Fragment>
+        )
+    }
+
+
     renderProduct() {
         return (
             <div id="product" className="product_card">
-                { this.props.inStock ? <Link to={`/product/${this.props.id}`}>
-                    <img className="product_image" src={this.props.image} alt=""/>
-                    <img className="product_cart_icon" src="./img/cart.png" alt=""/>
-                    <p className="product_card_title">{this.props.title}</p>
-                    <span className="product_card_price">{this.renderPrice()}</span>
-                </Link> :
+                {this.props.inStock ? <Link to={`/product/${this.props.id}`}>
+                        {this.renderProductInfo()}
+
+                        {/*<img className="product_image" src={this.props.image} alt=""/>*/}
+                        {/*<img className="product_cart_icon" src="./img/cart.png" alt=""/>*/}
+                        {/*<p className="product_card_title">{this.props.title}</p>*/}
+                        {/*<span className="product_card_price">{this.renderPrice()}</span>*/}
+                    </Link> :
                     <div className="inStock_box">
                         <p className="inStock">OUT OF STOCK</p>
-                        <img className="product_image" src={this.props.image} alt=""/>
-                        <img className="product_cart_icon" src="./img/cart.png" alt=""/>
-                        <p className="product_card_title">{this.props.title}</p>
-                        <span className="product_card_price">{this.renderPrice()}</span>
+                        {this.renderProductInfo()}
+                        {/*<img className="product_image" src={this.props.image} alt=""/>*/}
+                        {/*<img className="product_cart_icon" src="./img/cart.png" alt=""/>*/}
+                        {/*<p className="product_card_title">{this.props.title}</p>*/}
+                        {/*<span className="product_card_price">{this.renderPrice()}</span>*/}
                     </div>
                 }
             </div>
