@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./components/navbar/Navbar";
+import React from "react";
+import {ApolloClient, InMemoryCache} from "@apollo/client";
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ProductsContainer from "./components/products/ProductsContainer";
+import ProductDescription from "./components/products/ProductDescription";
+import Bag from "./components/Bag/Bag";
+import "./App.css"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            client: new ApolloClient({
+                uri: 'http://localhost:4000/',
+                cache: new InMemoryCache()
+            }),
+            currency: 'USD'
+        }
+    }
+
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    <Navbar client={this.state.client} />
+                    <Switch>
+                        <Route path="/:category" exact render={(props) => <ProductsContainer {...props} client={this.state.client} />}>
+                        </Route>
+                        <Route path="/product/:id" exact render={(props) => <ProductDescription {...props} client={this.state.client}  />}>
+                        </Route>
+                        <Route path="/view/bag" exact>
+                            <Bag />
+                        </Route>
+                        <Route path="/" exact>
+                            <ProductsContainer client={this.state.client} />
+                        </Route>
+
+                    </Switch>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;

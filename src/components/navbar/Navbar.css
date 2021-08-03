@@ -1,0 +1,63 @@
+*{
+    box-sizing: border-box;
+}
+
+#navbar {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-transform: uppercase;
+    width: 1440px;
+    margin: auto;
+}
+
+
+.navbar_links {
+    display: flex;
+    height: 100%;
+    min-height: 80px;
+    align-items: center;
+}
+
+#navbar .navbar_links a{
+    text-decoration: none;
+    margin-left: 32px;
+    color: black;
+    font-size: 16px;
+    position: relative;
+}
+
+#navbar .navbar_links a:hover{
+    color: green;
+}
+
+#navbar .navbar_links a:after{
+    position: absolute;
+    left: 50%;
+    content: '';
+    transition: all .3s;
+    width: 0;
+    bottom: 0;
+}
+
+#navbar .navbar_links a:hover:after{
+    width: calc(100% + 32px);
+    height: 1px;
+    position: absolute;
+    top: 30px;
+    left: -16px;
+    background-color: green;
+}
+
+.currency_cart {
+    display: flex;
+
+}
+
+.navbar_cart_icon{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 22px;
+}

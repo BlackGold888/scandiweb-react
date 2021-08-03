@@ -1,0 +1,56 @@
+.currencySelector{
+}
+
+.currencySelectorActive {
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
+.currencyContextMenu{
+    list-style: none;
+    position: absolute;
+    top: 70px;
+    width: 114px;
+    min-height: 169px;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px 2px #00000033;
+    padding-bottom: 10px;
+}
+
+.currencyContextMenu li {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    margin-top: 21px;
+    text-align: left;
+    display: block;
+}
+
+.currencyContextMenu a{
+    text-decoration: none;
+    margin-left: 32px;
+    color: black;
+    font-size: 16px;
+    position: relative;
+}
+
+.currencyContextMenu a:hover{
+    color: green;
+}
+
+.currencyContextMenu a:after{
+    position: absolute;
+    left: 50%;
+    content: '';
+    transition: all .3s;
+    width: 0;
+    bottom: 0;
+}
+
+.navbar_CurrencySign{
+    font-weight: 500;
+    font-size: 18px;
+    margin-right: 10px;
+    line-height: 160%;
+    color: #1D1F22;
+}
