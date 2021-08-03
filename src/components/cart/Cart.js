@@ -28,21 +28,13 @@ class Cart extends Component {
         }
         this.renderCartItems = this.renderCartItems.bind(this);
         this.setActiveContextMenu = this.setActiveContextMenu.bind(this);
-        this.renderProductPrice = this.renderProductPrice.bind(this);
         this.addItem = this.addItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
         this.getTotal = this.getTotal.bind(this);
-        this.handleEvent = this.handleEvent.bind(this);
         this.selectedSize = this.selectedSize.bind(this);
     }
 
-    renderProductPrice() {
-        return (
-            <React.Fragment>
 
-            </React.Fragment>
-        )
-    }
 
     addItem(product) {
         this.props.addItemToCart(product)
@@ -159,14 +151,6 @@ class Cart extends Component {
             active: !this.state.active
         });
 
-    }
-
-    handleEvent() {
-        this.forceUpdate()
-    }
-
-    componentDidMount() {
-        document.body.addEventListener('myEvent', this.handleEvent, false);
     }
 
     render() {

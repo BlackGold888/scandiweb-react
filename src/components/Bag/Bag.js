@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AddItemToCart, RemoveItemFromCart, ResizeItemFromCart} from "../../actions";
 import {connect} from "react-redux";
-import "./Bag.css"
+import styles from "./Bag.css"
 import CurrencySign from "../CurrencySign/CurrencySign";
 
 const mapStateToProps = (props) => {
@@ -68,7 +68,7 @@ class Bag extends Component {
                                     <div className='left_side'>
                                         <p className="product_brand">{product.brand}</p>
                                         <p className="product_name">{product.name}</p>
-                                        <p className="product_price">{<CurrencySign/>}{ this.renderProductPrice(product) }</p>
+                                        <p className="product_price">{<CurrencySign currency={this.props.currency} />}{ this.renderProductPrice(product) }</p>
                                         <div className="size_section">
                                             {product.attributes[0]?.items[0].value.includes('#') ?
                                                 product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value == size.value ? 'active_color_size' : '')}></button> ) :

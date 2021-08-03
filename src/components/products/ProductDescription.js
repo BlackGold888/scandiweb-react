@@ -130,8 +130,6 @@ class ProductDescription extends Component {
         let temp = Object.assign({}, this.state.product)
         temp.selectedSize = this.state.selectedSize ?? this.state.product.attributes[0].items[0];
         this.props.addItemToCart(temp);
-        var event = new CustomEvent('myEvent', {});
-        document.body.dispatchEvent(event);
     }
 
     renderProductDescription() {
