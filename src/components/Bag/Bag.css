@@ -1,5 +1,6 @@
 .bag_container {
-    margin: 80px 100px;
+    margin: auto;
+    max-width: 1440px;
 }
 
 .cart_title {
@@ -7,6 +8,7 @@
     font-weight: bold;
     font-size: 32px;
     line-height: 40px;
+    margin-top: 100px;
     height: 40px;
     text-transform: uppercase;
     width: 84px;

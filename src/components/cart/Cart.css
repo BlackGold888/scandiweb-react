@@ -15,7 +15,7 @@
     display: block;
     position: absolute;
     padding: 16px;
-    right: 400px;
+    right: 30px;
     width: 325px;
 }
 
@@ -180,15 +180,14 @@
     margin-top: 44px;
 }
 
-
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 1200px) {
     .cart_items_container{
-        right: 100px;
+        right: 290px;
     }
 }
 
-@media only screen and (max-width: 1680px) {
+@media only screen and (min-width: 1680px) {
     .cart_items_container{
-        right: 290px;
+        right: 400px;
     }
 }
