@@ -100,7 +100,7 @@ class ProductDescription extends Component {
     selectedSize(size){
         this.setState({
             selectedSize: size
-        })
+        });
     }
 
     renderSizeList()

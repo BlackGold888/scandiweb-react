@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {AddItemToCart, RemoveItemFromCart, ResizeItemFromCart} from "../../actions";
 import {connect} from "react-redux";
 import CurrencySign from "../CurrencySign/CurrencySign";
+import "./Bag.css"
 
 const mapStateToProps = (props) => {
     return {
