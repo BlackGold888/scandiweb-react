@@ -1,4 +1,7 @@
 .currencySelector{
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .currencySelectorActive {
@@ -7,32 +10,32 @@
 }
 
 .currencyContextMenu{
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px 2px #00000033;
     list-style: none;
+    min-height: 169px;
+    padding-bottom: 10px;
     position: absolute;
     top: 70px;
     width: 114px;
-    min-height: 169px;
-    background: #FFFFFF;
-    box-shadow: 0px 1px 2px 2px #00000033;
-    padding-bottom: 10px;
     z-index: 10;
 }
 
 .currencyContextMenu li {
+    display: block;
     font-weight: 500;
     font-size: 18px;
     line-height: 160%;
     margin-top: 21px;
     text-align: left;
-    display: block;
 }
 
 .currencyContextMenu a{
-    text-decoration: none;
-    margin-left: 32px;
     color: black;
     font-size: 16px;
+    margin-left: 32px;
     position: relative;
+    text-decoration: none;
 }
 
 .currencyContextMenu a:hover{
@@ -40,18 +43,18 @@
 }
 
 .currencyContextMenu a:after{
-    position: absolute;
-    left: 50%;
+    bottom: 0;
     content: '';
+    left: 50%;
+    position: absolute;
     transition: all .3s;
     width: 0;
-    bottom: 0;
 }
 
 .navbar_CurrencySign{
+    color: #1D1F22;
     font-weight: 500;
     font-size: 18px;
-    margin-right: 10px;
     line-height: 160%;
-    color: #1D1F22;
+    margin-right: 10px;
 }

@@ -14,7 +14,7 @@
     display: block;
     position: absolute;
     padding: 16px;
-    right: 200px;
+    right: 400px;
     width: 325px;
 }
 
@@ -177,4 +177,17 @@
 
 .cart_box_navbar .cart_list_item{
     margin-top: 44px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .cart_items_container{
+        right: 100px;
+    }
+}
+
+@media only screen and (max-width: 1680px) {
+    .cart_items_container{
+        right: 290px;
+    }
 }
