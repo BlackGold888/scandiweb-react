@@ -66,6 +66,7 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    margin-right: 10px;
 }
 
 .right_side{
@@ -77,4 +78,15 @@
 .product_bag_image img{
     height: 185px;
     width: 141px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .bag_list_item{
+        flex-direction: column;
+    }
+
+    .bag_container{
+        margin: 10px;
+    }
+
 }

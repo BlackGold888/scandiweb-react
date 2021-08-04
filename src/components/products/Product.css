@@ -44,6 +44,7 @@
 .main_img {
     height: 511px;
     width: 610px;
+    object-fit: contain;
 }
 
 .col-1 {
@@ -249,4 +250,23 @@
     #PDP .row > .col-6{
         width: 52%;
     }
+}
+
+@media only screen and (max-width: 1200px) {
+    #PDP .row > .col-6{
+        width: 100%;
+    }
+
+    #PDP {
+        margin: 10px;
+    }
+
+    #PDP > .row > .sm {
+        flex-wrap: wrap;
+    }
+
+    #PDP .product_info{
+        width: 100%;
+    }
+
 }

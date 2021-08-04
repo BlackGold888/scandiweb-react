@@ -63,3 +63,18 @@
 .cart_box_navbar{
     margin: auto;
 }
+
+@media only screen and (max-width: 1200px) {
+    #navbar .icon {
+        display: none;
+    }
+
+    #navbar{
+        justify-content: start;
+    }
+
+    #navbar .navbar_links > a{
+        margin-left: 22px;
+    }
+
+}
