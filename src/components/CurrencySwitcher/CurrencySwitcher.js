@@ -1,9 +1,9 @@
 import React from "react";
-import "./CurrencySwitcher.css";
 import {InitCurrency, changeCurrency} from "../../actions";
 import {connect} from "react-redux";
 import {gql} from "@apollo/client";
 import CurrencySign from "../CurrencySign/CurrencySign";
+import "./CurrencySwitcher.css";
 
 const mapStateToProps = (props) => {
     return {
@@ -80,7 +80,6 @@ class CurrencySwitcher extends React.Component {
     renderSelector() {
         return (
             <div className="currencySelector" onClick={this.contextMenu}>
-                {/*<img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt=""/>*/}
                 {this.renderArrow()}
                 {this.renderCurrencyContextMenu()}
             </div>
@@ -91,6 +90,5 @@ class CurrencySwitcher extends React.Component {
         return this.renderSelector();
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher);

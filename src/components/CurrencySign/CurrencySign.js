@@ -24,7 +24,6 @@ class CurrencySign extends Component {
                 return '₽';
             default:
                 return '$'
-
         }
     }
 

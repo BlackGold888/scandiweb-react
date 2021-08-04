@@ -5,4 +5,3 @@ const currencyReducer = (state = 'USD', action) =>{
    return state;
 }
 export default currencyReducer;
-

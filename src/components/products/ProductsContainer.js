@@ -61,7 +61,6 @@ class ProductsContainer extends Component {
         }
         return products.map(product => <div className="col-3"><Product image={product.gallery[0]} title={product.name}
                                                                        prices={product.prices} id={product.id} inStock={product.inStock}/></div>)
-
     }
 
     render() {

@@ -35,25 +35,15 @@ class Product extends Component {
         )
     }
 
-
     renderProduct() {
         return (
             <div id="product" className="product_card">
                 {this.props.inStock ? <Link to={`/product/${this.props.id}`}>
                         {this.renderProductInfo()}
-
-                        {/*<img className="product_image" src={this.props.image} alt=""/>*/}
-                        {/*<img className="product_cart_icon" src="./img/cart.png" alt=""/>*/}
-                        {/*<p className="product_card_title">{this.props.title}</p>*/}
-                        {/*<span className="product_card_price">{this.renderPrice()}</span>*/}
                     </Link> :
                     <div className="inStock_box">
                         <p className="inStock">OUT OF STOCK</p>
                         {this.renderProductInfo()}
-                        {/*<img className="product_image" src={this.props.image} alt=""/>*/}
-                        {/*<img className="product_cart_icon" src="./img/cart.png" alt=""/>*/}
-                        {/*<p className="product_card_title">{this.props.title}</p>*/}
-                        {/*<span className="product_card_price">{this.renderPrice()}</span>*/}
                     </div>
                 }
             </div>

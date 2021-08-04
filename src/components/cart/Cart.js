@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import "./Cart.css"
 import CurrencySign from "../CurrencySign/CurrencySign";
 import {AddItemToCart, RemoveItemFromCart, ResizeItemFromCart} from "../../actions";
 import {Link} from "react-router-dom";
+import "./Cart.css"
 
 const mapStateToProps = (props) => {
     return {
@@ -33,8 +33,6 @@ class Cart extends Component {
         this.getTotal = this.getTotal.bind(this);
         this.selectedSize = this.selectedSize.bind(this);
     }
-
-
 
     addItem(product) {
         this.props.addItemToCart(product)
@@ -120,7 +118,6 @@ class Cart extends Component {
                                     )
                                 })
                             }
-
                         </ul>
                         <div className="total_box">
                             <div className="total_title">

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {AddItemToCart, RemoveItemFromCart, ResizeItemFromCart} from "../../actions";
 import {connect} from "react-redux";
-import styles from "./Bag.css"
 import CurrencySign from "../CurrencySign/CurrencySign";
 
 const mapStateToProps = (props) => {

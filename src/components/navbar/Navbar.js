@@ -1,11 +1,11 @@
 import React from "react";
-import './Navbar.css'
 import CurrencySwitcher from "../CurrencySwitcher/CurrencySwitcher";
 import {Link} from "react-router-dom";
 import {gql} from "@apollo/client";
 import Cart from "../cart/Cart";
 import CurrencySign from "../CurrencySign/CurrencySign";
 import {connect} from "react-redux";
+import './Navbar.css'
 
 const mapStateToProps = (props) => {
     return {
@@ -14,7 +14,6 @@ const mapStateToProps = (props) => {
 }
 
 class Navbar extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {}

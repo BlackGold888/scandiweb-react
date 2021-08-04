@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {gql} from "@apollo/client";
-import "./Product.css"
 import {AddItemToCart} from "../../actions";
 import {connect} from "react-redux";
 import CurrencySign from "../CurrencySign/CurrencySign";
+import "./Product.css"
 
 const mapStateToProps = (props) => {
     return {
@@ -73,8 +73,6 @@ class ProductDescription extends Component {
             }
         );
     }
-
-
 
     renderMainImage(image)
     {
@@ -161,7 +159,6 @@ class ProductDescription extends Component {
             </div>
         );
     }
-
 
     render() {
         return this.renderProductDescription()

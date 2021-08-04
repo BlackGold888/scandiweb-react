@@ -35,7 +35,6 @@ class App extends React.Component {
                         <Route path="/" exact>
                             <ProductsContainer client={this.state.client} />
                         </Route>
-
                     </Switch>
                 </div>
             </Router>
