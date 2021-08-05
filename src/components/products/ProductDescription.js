@@ -50,6 +50,7 @@ class ProductDescription extends Component {
                     brand
                     category
                     description
+                    inStock
                     prices{
                       currency
                       amount
@@ -152,7 +153,7 @@ class ProductDescription extends Component {
                             <p className="price_title">PRICE:</p>
                             {this.renderPrice()}
                         </div>
-                        <button className="add_cart_button" onClick={this.addItem}>ADD TO CART</button>
+                        <button className={this.state.product?.inStock ? "add_cart_button" : "add_cart_button_disabled"} onClick={this.state.product?.inStock ? this.addItem : ()=> {}}>ADD TO CART</button>
                         <div className="product_desc" dangerouslySetInnerHTML={{ __html: this.state.product?.description }}>
                         </div>
                     </div>

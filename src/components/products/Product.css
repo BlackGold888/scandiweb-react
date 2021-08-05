@@ -169,6 +169,26 @@
     width: 292px;
 }
 
+.add_cart_button_disabled{
+    align-items: center;
+    box-shadow: none;
+    border: 2px grey solid;
+    background-color: grey;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 16px;
+    height: 52px;
+    line-height: 120%;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 16px 32px;
+    transition: all .3s;
+    width: 292px;
+}
+
 .add_cart_button:hover{
     background-color: #5ECE7B;
 }
