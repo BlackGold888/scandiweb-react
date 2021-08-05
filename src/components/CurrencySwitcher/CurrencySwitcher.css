@@ -11,7 +11,7 @@
 
 .currencyContextMenu{
     background: #FFFFFF;
-    box-shadow: 0px 1px 2px 2px #00000033;
+    box-shadow: 0 1px 2px 2px #00000033;
     list-style: none;
     min-height: 169px;
     padding-bottom: 10px;

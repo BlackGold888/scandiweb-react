@@ -15,7 +15,7 @@
 }
 
 .product_card:hover {
-    box-shadow: 0px 1px 5px 0px black;
+    box-shadow: 0 1px 5px 0 black;
 }
 
 .product_image {
@@ -94,6 +94,10 @@
     margin-left: 5px;
 }
 
+.price_title{
+    margin-bottom: 10px;
+}
+
 .size_button, .color_button {
     color: black;
     background-color: #fff;
@@ -134,7 +138,7 @@
 
 .color_button:hover{
     border: 3px solid #1D1F22;
-    box-shadow: 0px 1px 2px 1px #616469;
+    box-shadow: 0 1px 2px 1px #616469;
 }
 
 .price_section{
@@ -149,11 +153,8 @@
     margin-left: 5px;
 }
 
-.add_cart_button{
-    align-items: center;
-    box-shadow: none;
-    border: 2px #5ECE7B solid;
-    background-color: #fff;
+.add_cart_button,
+.add_cart_button_disabled{
     color: black;
     cursor: pointer;
     display: flex;
@@ -169,24 +170,18 @@
     width: 292px;
 }
 
+.add_cart_button{
+    align-items: center;
+    box-shadow: none;
+    border: 2px #5ECE7B solid;
+    background-color: #fff;
+}
+
 .add_cart_button_disabled{
     align-items: center;
     box-shadow: none;
     border: 2px grey solid;
     background-color: grey;
-    color: black;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    font-weight: 600;
-    font-size: 16px;
-    height: 52px;
-    line-height: 120%;
-    margin-top: 20px;
-    margin-left: 10px;
-    padding: 16px 32px;
-    transition: all .3s;
-    width: 292px;
 }
 
 .add_cart_button:hover{
