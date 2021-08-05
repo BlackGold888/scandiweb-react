@@ -55,7 +55,11 @@ class Product extends Component {
     renderProduct() {
         return (
             <div id="product" className="product_card">
-                <img onClick={this.addItem} style={this.props.product.inStock ? {opacity: "1"} : {opacity: "0"}} className="product_cart_icon" src={process.env.PUBLIC_URL + '/img/cart.png'} alt=""/>
+                <img
+                    onClick={this.addItem}
+                    style={this.props.product.inStock ? {opacity: "1"} : {opacity: "0"}}
+                    className="product_cart_icon" src={process.env.PUBLIC_URL + '/img/cart.png'}
+                    alt=""/>
                 {this.props.product.inStock ? <Link to={`/product/${this.props.product.id}`}>
                         {this.renderProductInfo()}
                     </Link> :

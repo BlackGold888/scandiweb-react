@@ -35,6 +35,11 @@ class Cart extends Component {
         this.selectedSize = this.selectedSize.bind(this);
         this.setMouseOver = this.setMouseOver.bind(this);
         this.hideActiveContextMenu = this.hideActiveContextMenu.bind(this);
+        this.renderProductCartPrice = this.renderProductCartPrice.bind(this);
+        this.renderProductCounterButton = this.renderProductCounterButton.bind(this);
+        this.renderTotalProductsPrice = this.renderTotalProductsPrice.bind(this);
+        this.renderBagCheckoutButtons = this.renderBagCheckoutButtons.bind(this);
+        this.renderProductBox = this.renderProductBox.bind(this);
     }
 
     addItem(product) {
@@ -58,102 +63,18 @@ class Cart extends Component {
         return total.toFixed(2);
     }
 
-    selectedSize(product, newSize){
+    selectedSize(product, newSize) {
         this.props.resizeItemFromCart(product, newSize);
         this.forceUpdate();
     }
 
-    setMouseOver(){
+    setMouseOver() {
         this.setState((state, props) => ({
             inMouseOver: !state.inMouseOver
         }));
     }
 
-    renderCartItems() {
-        if (!this.state.active) {
-            return "";
-        }
-        if (Object.keys(this.props.cart).length) {
-            return (
-                <div onClick={this.hideActiveContextMenu} className="cart_items">
-                    <div onMouseEnter={ this.setMouseOver } onMouseLeave={this.setMouseOver} className="cart_items_container">
-                        <ul className="cart_items_list">
-                            <li className="cart_items_list_title"><b>My Bag,</b> {this.props.cart.itemsCount} items</li>
-                            {
-                                Object.keys(this.props.cart.items).map(key => {
-                                    let product = this.props.cart.items[key];
-                                    return (
-                                        <li className="cart_list_item" key={product.id + product.selectedSize?.value}>
-                                            <div className="row product_box">
-                                                <div className="col-6">
-                                                    <p className='product_cart_brand'>{product.brand}</p>
-                                                    <p className='product_cart_name'>{product.name}</p>
-                                                    <p className="product_cart_price">
-                                                        {product.prices.map(price => {
-                                                            if (price.currency === this.props.currency) {
-                                                                return (
-                                                                    <React.Fragment key={price.currency}>
-                                                                        <CurrencySign currency={price.currency}/>
-                                                                        {price.amount}
-                                                                    </React.Fragment>
-                                                                )
-                                                            }
-                                                            return '';
-                                                        })}
-                                                    </p>
-                                                    <div className="size_section">
-                                                        {product.attributes[0]?.items[0].value.includes('#') ?
-                                                            product.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value === size.value ? 'active_color_size' : '')}></button> ) :
-                                                            product.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } className={"size_button " + (product.selectedSize.value === size.value ? 'active_button_size' : '')}>{size.value}</button> ) }
-                                                    </div>
-                                                </div>
-                                                <div className="col-6 cart_product">
-                                                    <div className="counter">
-                                                        <button onClick={() => {
-                                                            this.addItem(product)
-                                                        }} className="counter_increment">+
-                                                        </button>
-                                                        {product.counter}
-                                                        <button onClick={() => {
-                                                            this.removeItem(product)
-                                                        }} className="counter_decrement">-
-                                                        </button>
-                                                    </div>
-                                                    <div className="product_cart_image">
-                                                        <img src={product.gallery[0]} alt=""/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
-                        <div className="total_box">
-                            <div className="total_title">
-                                Total
-                            </div>
-                            <div className="total_amount">
-                                <CurrencySign currency={this.props.currency}/>
-                                {this.getTotal()}
-                            </div>
-                        </div>
-                        <div className="checkout_view_bag_button">
-                            <Link to={`/view/bag`}>
-                                <button onClick={() => {
-                                    this.setState({active: false})
-                                }} className="viewBag">VIEW BAG
-                                </button>
-                            </Link>
-                            <button className="checkout">CHECKOUT</button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-    }
-
-    hideActiveContextMenu(){
+    hideActiveContextMenu() {
         if (this.state.inMouseOver) {
             this.setState({
                 active: false
@@ -166,6 +87,150 @@ class Cart extends Component {
             active: !this.state.active,
             inMouseOver: true
         });
+    }
+
+    renderProductCartPrice(product) {
+        return (
+            <p className="product_cart_price">
+                {product.prices.map(price => {
+                    if (price.currency === this.props.currency) {
+                        return (
+                            <React.Fragment key={price.currency}>
+                                <CurrencySign currency={price.currency}/>
+                                {price.amount}
+                            </React.Fragment>
+                        )
+                    }
+                    return '';
+                })}
+            </p>
+        )
+    }
+
+    renderProductSizesButtons(product) {
+        return (
+            <div className="size_section">
+                {product.attributes[0]?.items[0].value.includes('#') ?
+                    product.attributes[0]?.items.map(size => <button
+                        onClick={() => this.selectedSize(product, size)}
+                        key={size.id} style={{backgroundColor: size.value}}
+                        className={"color_button " +
+                        (product.selectedSize.value === size.value ?
+                            'active_color_size' : '')}/>) : // Else
+                    product.attributes[0]?.items.map(size => <button
+                        onClick={() => this.selectedSize(product, size)}
+                        key={size.id}
+                        className={"size_button " +
+                        (product.selectedSize.value === size.value ?
+                            'active_button_size' : '')}>{size.value}
+                    </button>)}
+            </div>
+        )
+    }
+
+    renderProductCounterButton(product) {
+        return (
+            <div className="counter">
+                <button
+                    onClick={() => {
+                        this.addItem(product)
+                    }}
+                    className="counter_increment">+
+                </button>
+                {product.counter}
+                <button
+                    onClick={() => {
+                        this.removeItem(product)
+                    }}
+                    className="counter_decrement">-
+                </button>
+            </div>
+        )
+    }
+
+    renderTotalProductsPrice() {
+        return (
+            <div className="total_box">
+                <div className="total_title">
+                    Total
+                </div>
+                <div className="total_amount">
+                    <CurrencySign currency={this.props.currency}/>
+                    {this.getTotal()}
+                </div>
+            </div>
+        )
+    }
+
+    renderBagCheckoutButtons(){
+        return (
+            <div className="checkout_view_bag_button">
+                <Link to={`/view/bag`}>
+                    <button
+                        onClick={() => {
+                            this.setState({active: false})
+                        }}
+                        className="viewBag">VIEW BAG
+                    </button>
+                </Link>
+                <button className="checkout">CHECKOUT</button>
+            </div>
+        )
+    }
+
+    renderProductBox(product)
+    {
+        return (
+            <div className="row product_box">
+                <div className="col-6">
+                    <p className='product_cart_brand'>{product.brand}</p>
+                    <p className='product_cart_name'>{product.name}</p>
+                    {this.renderProductCartPrice(product)}
+                    {this.renderProductSizesButtons(product)}
+                </div>
+                <div className="col-6 cart_product">
+                    {this.renderProductCounterButton(product)}
+                    <div className="product_cart_image">
+                        <img src={product.gallery[0]} alt=""/>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    renderCartItems() {
+        if (!this.state.active) {
+            return "";
+        }
+        if (Object.keys(this.props.cart).length) {
+            return (
+                <div onClick={this.hideActiveContextMenu} className="cart_items">
+                    <div onMouseEnter={this.setMouseOver} onMouseLeave={this.setMouseOver}
+                         className="cart_items_container">
+                        <ul className="cart_items_list">
+                            <li className="cart_items_list_title">
+                                <b>My Bag,</b> {this.props.cart.itemsCount} items
+                            </li>
+                            {
+                                Object.keys(this.props.cart.items).map(key => {
+                                    let product = this.props.cart.items[key];
+                                    return (
+                                        <li
+                                            className="cart_list_item"
+                                            key={product.id + product.selectedSize?.value}>
+                                            {this.renderProductBox(product)}
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+
+                        {this.renderTotalProductsPrice}
+                        {this.renderBagCheckoutButtons}
+                    </div>
+                </div>
+            );
+        }
     }
 
     render() {

@@ -14,9 +14,9 @@ const mapStateToProps = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        currencyChange:(name)=> dispatch(changeCurrency(name)),
-        initCurrency:()=> dispatch(InitCurrency()),
-        currencySwitcherAction:()=> dispatch(CurrencySwitcherAction()),
+        currencyChange: (name) => dispatch(changeCurrency(name)),
+        initCurrency: () => dispatch(InitCurrency()),
+        currencySwitcherAction: () => dispatch(CurrencySwitcherAction()),
     }
 }
 
@@ -60,7 +60,7 @@ class CurrencySwitcher extends React.Component {
         }));
     }
 
-    changeCurrency(currency){
+    changeCurrency(currency) {
         this.props.currencyChange(currency);
         this.props.currencySwitcherAction();
         this.setState((state, props) => ({
@@ -76,23 +76,31 @@ class CurrencySwitcher extends React.Component {
         return (
             <div>
                 <ul className="currencyContextMenu">
-                    {this.state.currencies?.currencies.map(cur => <li key={cur} onClick={() => {this.changeCurrency(cur)}}><span><CurrencySign currency={cur} /> {cur}</span></li>)}
+                    {this.state.currencies?.currencies.map(cur =>
+                        <li key={cur} onClick={() => {
+                            this.changeCurrency(cur)
+                        }}>
+                            <span>
+                                <CurrencySign currency={cur}/> {cur}
+                            </span>
+                        </li>)}
                 </ul>
             </div>
         )
     }
 
-    renderArrow()
-    {
+    renderArrow() {
         if (this.state.active && this.props.currencySwitcherState) {
-            return  <img src={process.env.PUBLIC_URL + '/img/arrowUP.png'} alt=""/>
+            return <img src={process.env.PUBLIC_URL + '/img/arrowUP.png'} alt=""/>
         }
-        return  <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt=""/>
+        return <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt=""/>
     }
 
     renderSelector() {
         return (
-            <div className="currencySelector" onClick={this.showContextMenu}>
+            <div
+                className="currencySelector"
+                onClick={this.showContextMenu}>
                 {this.renderArrow()}
                 {this.renderCurrencyContextMenu()}
             </div>
