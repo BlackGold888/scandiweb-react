@@ -192,7 +192,7 @@ class ProductDescription extends Component {
                             id="mainImage"
                             className="main_img"
                             src={this.state.selectedImage}
-                            alt="Active product image"
+                            alt="Active product"
                         />
                     </div>
                     <div className="col-1 sm">
