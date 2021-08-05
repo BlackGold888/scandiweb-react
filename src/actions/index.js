@@ -35,4 +35,10 @@ export const ResizeItemFromCart = (item, newSize) => {
     }
 }
 
+export const CurrencySwitcherAction = () =>{
+    return {
+        type: 'CURRENCY_SWITCHER'
+    }
+}
+
 

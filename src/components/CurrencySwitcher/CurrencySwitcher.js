@@ -1,5 +1,5 @@
 import React from "react";
-import {InitCurrency, changeCurrency} from "../../actions";
+import {InitCurrency, changeCurrency, CurrencySwitcherAction} from "../../actions";
 import {connect} from "react-redux";
 import {gql} from "@apollo/client";
 import CurrencySign from "../CurrencySign/CurrencySign";
@@ -8,6 +8,7 @@ import "./CurrencySwitcher.css";
 const mapStateToProps = (props) => {
     return {
         currency: props.currency,
+        currencySwitcherState: props.currencySwitcherReducer,
     }
 }
 
@@ -15,6 +16,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         currencyChange:(name)=> dispatch(changeCurrency(name)),
         initCurrency:()=> dispatch(InitCurrency()),
+        currencySwitcherAction:()=> dispatch(CurrencySwitcherAction()),
     }
 }
 
@@ -51,13 +53,11 @@ class CurrencySwitcher extends React.Component {
     }
 
     contextMenu() {
-        this.setState({
-            active: !this.state.active
-        });
+        this.props.currencySwitcherAction();
     }
 
     renderCurrencyContextMenu() {
-        if (!this.state.active) {
+        if (!this.props.currencySwitcherState) {
             return null;
         }
         return (

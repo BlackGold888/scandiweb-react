@@ -2,6 +2,21 @@ import React, {Component} from 'react';
 import {gql} from "@apollo/client";
 import Product from "./Product";
 import "./Product.css"
+import {CurrencySwitcherAction} from "../../actions";
+import {connect} from "react-redux";
+
+const mapStateToProps = (props) => {
+    return {
+        currency: props.currency,
+        currencySwitcherState: props.currencySwitcherReducer,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        currencySwitcherAction:()=> dispatch(CurrencySwitcherAction()),
+    }
+}
 
 class ProductsContainer extends Component {
     constructor(...props) {
@@ -11,6 +26,7 @@ class ProductsContainer extends Component {
         }
         this.getProducts = this.getProducts.bind(this);
         this.renderAllProducts = this.renderAllProducts.bind(this);
+        this.setCurrencySwitcherState = this.setCurrencySwitcherState.bind(this);
     }
 
     componentDidMount() {
@@ -71,9 +87,13 @@ class ProductsContainer extends Component {
         return products.map(product => <div key={product.id} className="col-3"><Product product={product}/></div>)
     }
 
+    setCurrencySwitcherState() {
+        this.props.currencySwitcherAction();
+    }
+
     render() {
         return (
-            <div className="products_container">
+            <div onClick={this.setCurrencySwitcherState} className="products_container">
                 <div className="row">
                     {this.renderAllProducts()}
                 </div>
@@ -82,4 +102,4 @@ class ProductsContainer extends Component {
     }
 }
 
-export default ProductsContainer;
+export default connect(mapStateToProps,mapDispatchToProps)(ProductsContainer);

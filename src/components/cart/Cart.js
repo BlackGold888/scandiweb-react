@@ -61,13 +61,12 @@ class Cart extends Component {
     }
 
     renderCartItems() {
-
         if (!this.state.active) {
             return "";
         }
         if (Object.keys(this.props.cart).length) {
             return (
-                <div className="cart_items">
+                <div onClick={this.setActiveContextMenu} className="cart_items">
                     <div className="cart_items_container">
                         <ul className="cart_items_list">
                             <li className="cart_items_list_title"><b>My Bag,</b> {this.props.cart.length} items</li>
