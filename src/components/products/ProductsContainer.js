@@ -88,7 +88,9 @@ class ProductsContainer extends Component {
     }
 
     setCurrencySwitcherState() {
-        this.props.currencySwitcherAction();
+        if (this.props.currencySwitcherState) {
+            this.props.currencySwitcherAction();
+        }
     }
 
     render() {

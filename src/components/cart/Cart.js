@@ -148,7 +148,6 @@ class Cart extends Component {
         this.setState({
             active: !this.state.active
         });
-
     }
 
     render() {

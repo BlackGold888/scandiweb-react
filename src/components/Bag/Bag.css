@@ -38,6 +38,7 @@
     border-top: #E5E5E5;
     height: 1px;
     margin-bottom: 20px;
+    margin-top: 20px;
     width: 100%;
 }
 
@@ -77,9 +78,28 @@
     width: 198px;
 }
 
-.product_bag_image img{
+.product_bag_image{
+    position: relative;
+}
+
+.bag_main_product_image{
     height: 185px;
     width: 141px;
+    object-fit: contain;
+}
+
+.bag_image_left_arrow, .bag_image_right_arrow{
+    position: absolute;
+    width: 36px;
+}
+
+.bag_image_left_arrow{
+    top: 40%;
+}
+
+.bag_image_right_arrow{
+    top: 40%;
+    right: 0;
 }
 
 @media only screen and (max-width: 1200px) {
