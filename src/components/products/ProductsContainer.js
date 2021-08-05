@@ -76,7 +76,7 @@ class ProductsContainer extends Component {
         const products = [];
         if (this.props.match !== undefined) {
             this.state.products?.category.products.map(product => {
-                if (product.category === this.props.match.params.category) {
+                if (product.category === this.props.match.params.category || this.props.match.params.category === "home") {
                     products.push(product);
                 }
                 return '';
@@ -95,7 +95,8 @@ class ProductsContainer extends Component {
 
     render() {
         return (
-            <div onClick={this.setCurrencySwitcherState} className="products_container">
+            <div  className="products_container">
+                <h3 className="category_name">{ this.props.match ? this.props.match?.params.category : "All Products"}</h3>
                 <div className="row">
                     {this.renderAllProducts()}
                 </div>

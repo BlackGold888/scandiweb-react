@@ -25,6 +25,7 @@ class Cart extends Component {
         super(props);
         this.state = {
             active: false,
+            inMouseOver: false
         }
         this.renderCartItems = this.renderCartItems.bind(this);
         this.setActiveContextMenu = this.setActiveContextMenu.bind(this);
@@ -32,6 +33,8 @@ class Cart extends Component {
         this.removeItem = this.removeItem.bind(this);
         this.getTotal = this.getTotal.bind(this);
         this.selectedSize = this.selectedSize.bind(this);
+        this.setMouseOver = this.setMouseOver.bind(this);
+        this.hideActiveContextMenu = this.hideActiveContextMenu.bind(this);
     }
 
     addItem(product) {
@@ -60,21 +63,27 @@ class Cart extends Component {
         this.forceUpdate();
     }
 
+    setMouseOver(){
+        this.setState((state, props) => ({
+            inMouseOver: !state.inMouseOver
+        }));
+    }
+
     renderCartItems() {
         if (!this.state.active) {
             return "";
         }
         if (Object.keys(this.props.cart).length) {
             return (
-                <div onClick={this.setActiveContextMenu} className="cart_items">
-                    <div className="cart_items_container">
+                <div onClick={this.hideActiveContextMenu} className="cart_items">
+                    <div onMouseEnter={ this.setMouseOver } onMouseLeave={this.setMouseOver} className="cart_items_container">
                         <ul className="cart_items_list">
-                            <li className="cart_items_list_title"><b>My Bag,</b> {this.props.cart.length} items</li>
+                            <li className="cart_items_list_title"><b>My Bag,</b> {this.props.cart.itemsCount} items</li>
                             {
                                 Object.keys(this.props.cart.items).map(key => {
                                     let product = this.props.cart.items[key];
                                     return (
-                                        <li className="cart_list_item" key={product.id + product.selectedSize.value}>
+                                        <li className="cart_list_item" key={product.id + product.selectedSize?.value}>
                                             <div className="row product_box">
                                                 <div className="col-6">
                                                     <p className='product_cart_brand'>{product.brand}</p>
@@ -94,8 +103,8 @@ class Cart extends Component {
                                                     </p>
                                                     <div className="size_section">
                                                         {product.attributes[0]?.items[0].value.includes('#') ?
-                                                            product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value === size.value ? 'active_color_size' : '')}></button> ) :
-                                                            product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } className={"size_button " + (product.selectedSize.value === size.value ? 'active_button_size' : '')}>{size.value}</button> ) }
+                                                            product.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value === size.value ? 'active_color_size' : '')}></button> ) :
+                                                            product.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } className={"size_button " + (product.selectedSize.value === size.value ? 'active_button_size' : '')}>{size.value}</button> ) }
                                                     </div>
                                                 </div>
                                                 <div className="col-6 cart_product">
@@ -144,9 +153,18 @@ class Cart extends Component {
         }
     }
 
+    hideActiveContextMenu(){
+        if (this.state.inMouseOver) {
+            this.setState({
+                active: false
+            });
+        }
+    }
+
     setActiveContextMenu() {
         this.setState({
-            active: !this.state.active
+            active: !this.state.active,
+            inMouseOver: true
         });
     }
 

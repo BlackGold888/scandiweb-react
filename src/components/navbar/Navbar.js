@@ -1,6 +1,7 @@
 import React from "react";
 import CurrencySwitcher from "../CurrencySwitcher/CurrencySwitcher";
 import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {gql} from "@apollo/client";
 import Cart from "../cart/Cart";
 import CurrencySign from "../CurrencySign/CurrencySign";
@@ -44,15 +45,18 @@ class Navbar extends React.Component {
     }
 
     renderNavigationLinks() {
-        return this.state.categories?.categories.map(category => <Link key={category.name}
-                                                                       to={`/${category.name}`}>{category.name}</Link>)
+        let temp = <NavLink activeClassName={"navbar_link_active"} key="home" to={`/home`}>Home</NavLink>;
+
+        let links = this.state.categories?.categories.map(category => <NavLink key={category.name}
+            to={`/${category.name}`} activeClassName={"navbar_link_active"}>{category.name}</NavLink>)
+        console.log(links)
+        return [temp, ...links ?? []];
     }
 
     renderNavbar() {
         return (
             <nav id="navbar">
                 <div className="navbar_links">
-                    <Link to={`/`}>Home</Link>
                     {this.renderNavigationLinks()}
                 </div>
                 <div className="icon">

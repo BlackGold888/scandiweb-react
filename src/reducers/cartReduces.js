@@ -1,7 +1,7 @@
 const cartReducer = (state = {items: {}, itemsCount: 0}, action) => {
     switch (action.type) {
         case 'ADD':
-            const itemId = action.item.id + '-' + action.item.selectedSize.value;
+            const itemId = action.item.id + '-' + action.item.selectedSize?.value;
 
             if (itemId in state.items) {
                 let newItem = {...state.items[itemId]}
@@ -16,7 +16,7 @@ const cartReducer = (state = {items: {}, itemsCount: 0}, action) => {
             state.itemsCount++;
             return {...state};
         case 'REMOVE':
-            const removeItemId = action.item.id + '-' + action.item.selectedSize.value;
+            const removeItemId = action.item.id + '-' + action.item.selectedSize?.value;
 
             if (removeItemId in state.items) {
                 let newItem = {...state.items[removeItemId]}
@@ -31,7 +31,7 @@ const cartReducer = (state = {items: {}, itemsCount: 0}, action) => {
             state.itemsCount--;
             return {...state};
         case 'RESIZE':
-            const reSizeItemKey = action.item.id + '-' + action.item.selectedSize.value;
+            const reSizeItemKey = action.item.id + '-' + action.item.selectedSize?.value;
             //Remove old key
             const newItemKey = action.item.id + '-' + action.newSize.value;
             let newItem = action.item;

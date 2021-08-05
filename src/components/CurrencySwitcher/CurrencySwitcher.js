@@ -26,10 +26,11 @@ class CurrencySwitcher extends React.Component {
         this.state = {
             active: false,
         }
-        this.contextMenu = this.contextMenu.bind(this);
         this.renderCurrencyContextMenu = this.renderCurrencyContextMenu.bind(this);
         this.getCurrencies = this.getCurrencies.bind(this);
         this.renderArrow = this.renderArrow.bind(this);
+        this.showContextMenu = this.showContextMenu.bind(this);
+        this.changeCurrency = this.changeCurrency.bind(this);
     }
 
     getCurrencies = async () => {
@@ -52,18 +53,30 @@ class CurrencySwitcher extends React.Component {
         this.getCurrencies();
     }
 
-    contextMenu() {
+    showContextMenu() {
         this.props.currencySwitcherAction();
+        this.setState((state, props) => ({
+            active: !state.active
+        }));
+    }
+
+    changeCurrency(currency){
+        this.props.currencyChange(currency);
+        this.props.currencySwitcherAction();
+        this.setState((state, props) => ({
+            active: false
+        }));
+        console.log(this.state.active);
     }
 
     renderCurrencyContextMenu() {
-        if (!this.props.currencySwitcherState) {
+        if (!this.props.currencySwitcherState || !this.state.active) {
             return null;
         }
         return (
             <div>
                 <ul className="currencyContextMenu">
-                    {this.state.currencies?.currencies.map(cur => <li key={cur} onClick={() => {this.props.currencyChange(cur)}}><span><CurrencySign currency={cur} /> {cur}</span></li>)}
+                    {this.state.currencies?.currencies.map(cur => <li key={cur} onClick={() => {this.changeCurrency(cur)}}><span><CurrencySign currency={cur} /> {cur}</span></li>)}
                 </ul>
             </div>
         )
@@ -71,7 +84,7 @@ class CurrencySwitcher extends React.Component {
 
     renderArrow()
     {
-        if (this.state.active) {
+        if (this.state.active && this.props.currencySwitcherState) {
             return  <img src={process.env.PUBLIC_URL + '/img/arrowUP.png'} alt=""/>
         }
         return  <img src={process.env.PUBLIC_URL + '/img/arrow.png'} alt=""/>
@@ -79,7 +92,7 @@ class CurrencySwitcher extends React.Component {
 
     renderSelector() {
         return (
-            <div className="currencySelector" onClick={this.contextMenu}>
+            <div className="currencySelector" onClick={this.showContextMenu}>
                 {this.renderArrow()}
                 {this.renderCurrencyContextMenu()}
             </div>

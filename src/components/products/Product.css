@@ -115,7 +115,7 @@
     height: 52px;
     visibility: hidden;
     position: absolute;
-    left: 65%;
+    right: 15%;
     width: 52px;
     z-index: 99;
 }
@@ -227,6 +227,10 @@
 .inStock_box{
     opacity: 0.5;
     position: relative;
+}
+
+.category_name{
+    text-transform: uppercase;
 }
 
 @media only screen and (max-width: 1200px) {

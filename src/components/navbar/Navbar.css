@@ -5,7 +5,7 @@
 #navbar {
     align-items: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     text-transform: uppercase;
     min-height: 80px;
     max-width: 1440px;
@@ -41,6 +41,19 @@
 }
 
 #navbar .navbar_links a:hover:after{
+    background-color: green;
+    height: 1px;
+    left: -16px;
+    position: absolute;
+    top: 30px;
+    width: calc(100% + 32px);
+}
+
+#navbar .navbar_links a.navbar_link_active{
+    color: green;
+}
+
+#navbar .navbar_links a.navbar_link_active:after{
     background-color: green;
     height: 1px;
     left: -16px;

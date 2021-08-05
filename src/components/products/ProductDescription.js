@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {gql} from "@apollo/client";
 import {AddItemToCart} from "../../actions";
 import {connect} from "react-redux";
+import {removeHtmlFromString} from "../../utils/htmlHelpers";
 import CurrencySign from "../CurrencySign/CurrencySign";
 import "./Product.css"
 
@@ -116,7 +117,7 @@ class ProductDescription extends Component {
                 <p className="size_title"><b>SIZE:</b></p>
                 {this.state.product?.attributes[0]?.items[0].value.includes('#') ?
                     this.state.product?.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(size)} key={size.id } style={{backgroundColor: size.value}}
-                                                                                 className={"color_button " + (this.state.selectedSize.id === size.id ? "active_color_size" : "")}></button> ) :
+                                                                                 className={"color_button " + (this.state.selectedSize.id === size.id ? "active_color_size" : "")} /> ) :
                     this.state.product?.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(size)} key={size.id }
                                                                                  className={"size_button " + (this.state.selectedSize.id === size.id ? "active_button_size" : "")}>{size.value}</button> ) }
             </div>
@@ -128,7 +129,13 @@ class ProductDescription extends Component {
             return ""
         }
         let temp = Object.assign({}, this.state.product)
-        temp.selectedSize = this.state.selectedSize ?? this.state.product.attributes[0].items[0];
+        temp.selectedSize = this.state.selectedSize ?? this.state.product?.attributes[0]?.items[0];
+        console.log(temp.selectedSize);
+        if (temp.selectedSize === undefined) {
+            temp.selectedSize = {
+                displayValue: "40", value: "40", id: "40"
+            };
+        }
         this.props.addItemToCart(temp);
     }
 
@@ -154,7 +161,8 @@ class ProductDescription extends Component {
                             {this.renderPrice()}
                         </div>
                         <button className={this.state.product?.inStock ? "add_cart_button" : "add_cart_button_disabled"} onClick={this.state.product?.inStock ? this.addItem : ()=> {}}>ADD TO CART</button>
-                        <div className="product_desc" dangerouslySetInnerHTML={{ __html: this.state.product?.description }}>
+                        <div className="product_desc">
+                            {removeHtmlFromString(this.state.product?.description)}
                         </div>
                     </div>
                 </div>

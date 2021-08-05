@@ -38,7 +38,7 @@ class Product extends Component {
         }
         let temp = Object.assign({}, this.props.product)
 
-        temp.selectedSize = temp.attributes[0].items[0];
+        temp.selectedSize = temp.attributes[0]?.items[0];
         this.props.addItemToCart(temp);
     }
 

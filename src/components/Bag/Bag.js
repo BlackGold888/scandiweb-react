@@ -124,8 +124,8 @@ class Bag extends Component {
                                         <p className="product_price">{<CurrencySign currency={this.props.currency} />}{ this.renderProductPrice(product) }</p>
                                         <div className="size_section">
                                             {product.attributes[0]?.items[0].value.includes('#') ?
-                                                product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size, key)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value === size.value ? 'active_color_size' : '')}></button> ) :
-                                                product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size, key)} key={size.id } className={"size_button " + (product.selectedSize.value === size.value ? 'active_button_size' : '')}>{size.value}</button> ) }
+                                                product.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(product, size, key)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value === size.value ? 'active_color_size' : '')}></button> ) :
+                                                product.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(product, size, key)} key={size.id } className={"size_button " + (product.selectedSize.value === size.value ? 'active_button_size' : '')}>{size.value}</button> ) }
                                         </div>
                                     </div>
                                     <div className='right_side'>
