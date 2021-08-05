@@ -23,6 +23,7 @@
     height: 330px;
     margin: auto;
     max-width: 356px;
+    object-fit: fill;
 }
 
 .row {
@@ -39,6 +40,7 @@
     height: 80px;
     margin: 5px;
     width: 80px;
+    object-fit: contain;
 }
 
 .main_img {
@@ -109,15 +111,20 @@
 }
 
 .product_cart_icon{
-    bottom: 30px;
+    bottom: 70px;
     height: 52px;
     visibility: hidden;
-    position: relative;
-    left: 85%;
+    position: absolute;
+    left: 65%;
     width: 52px;
+    z-index: 99;
 }
 
-.product_image:hover + .product_cart_icon{
+.product_card {
+    position: relative;
+    display: block;
+}
+.product_card:hover .product_cart_icon{
     visibility: visible;
 }
 

@@ -33,8 +33,8 @@ class ProductDescription extends Component {
         this.renderProductDescription = this.renderProductDescription.bind(this);
     }
 
-    componentDidMount() {
-        this.getProduct();
+    async componentDidMount() {
+        await this.getProduct();
     }
 
     async getProduct() {
@@ -69,7 +69,7 @@ class ProductDescription extends Component {
             {
                 product: temp.data.product,
                 selectedImage: temp.data.product.gallery[0],
-                selectedSize: temp.data.product?.attributes[0].items[0]
+                selectedSize: temp.data.product?.attributes[0]?.items[0]
             }
         );
     }
@@ -84,14 +84,15 @@ class ProductDescription extends Component {
     }
 
     renderPrice(){
-        if (this.state.product == undefined) return;
+        if (this.state.product === undefined) return;
         let currency = this.state.product?.prices.find(price => {
-            if (price.currency == this.props.currency) {
+            if (price.currency === this.props.currency) {
                 return price;
             }
+            return '';
         });
 
-        if (currency == undefined) {
+        if (currency === undefined) {
             currency = this.state.product?.prices[0];
         }
         return <p className="price">{ currency.amount } <CurrencySign currency={currency.currency} /></p>;
@@ -114,9 +115,9 @@ class ProductDescription extends Component {
                 <p className="size_title"><b>SIZE:</b></p>
                 {this.state.product?.attributes[0]?.items[0].value.includes('#') ?
                     this.state.product?.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(size)} key={size.id } style={{backgroundColor: size.value}}
-                                                                                 className={"color_button " + (this.state.selectedSize.id == size.id ? "active_color_size" : "")}></button> ) :
+                                                                                 className={"color_button " + (this.state.selectedSize.id === size.id ? "active_color_size" : "")}></button> ) :
                     this.state.product?.attributes[0]?.items.map(size => <button onClick={() => this.selectedSize(size)} key={size.id }
-                                                                                 className={"size_button " + (this.state.selectedSize.id == size.id ? "active_button_size" : "")}>{size.value}</button> ) }
+                                                                                 className={"size_button " + (this.state.selectedSize.id === size.id ? "active_button_size" : "")}>{size.value}</button> ) }
             </div>
         );
     }
@@ -134,7 +135,7 @@ class ProductDescription extends Component {
         return (
             <div id="PDP">
                 <div className="row">
-                    <div className="col-1 md">
+                    <div className="md">
                         {this.state.product?.gallery.map(image => <img key={image} onClick={() => this.renderMainImage(image)} className="img-slider" src={image} alt=""/>)}
                     </div>
                     <div className="col-6">

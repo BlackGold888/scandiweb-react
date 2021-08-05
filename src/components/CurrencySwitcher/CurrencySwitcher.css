@@ -30,7 +30,7 @@
     text-align: left;
 }
 
-.currencyContextMenu a{
+.currencyContextMenu span{
     color: black;
     font-size: 16px;
     margin-left: 32px;
@@ -38,11 +38,12 @@
     text-decoration: none;
 }
 
-.currencyContextMenu a:hover{
+.currencyContextMenu span:hover{
     color: green;
+    cursor: pointer;
 }
 
-.currencyContextMenu a:after{
+.currencyContextMenu span:after{
     bottom: 0;
     content: '';
     left: 50%;

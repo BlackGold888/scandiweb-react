@@ -48,8 +48,9 @@ class Cart extends Component {
         let total = 0;
         Object.keys(this.props.cart.items).filter(key => {
             let product = this.props.cart.items[key];
-            let price = product.prices.find(price => price.currency == this.props.currency);
+            let price = product.prices.find(price => price.currency === this.props.currency);
             total += price.amount * product.counter;
+            return total;
         })
         return total.toFixed(2);
     }
@@ -89,12 +90,13 @@ class Cart extends Component {
                                                                     </React.Fragment>
                                                                 )
                                                             }
+                                                            return '';
                                                         })}
                                                     </p>
                                                     <div className="size_section">
                                                         {product.attributes[0]?.items[0].value.includes('#') ?
-                                                            product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value == size.value ? 'active_color_size' : '')}></button> ) :
-                                                            product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } className={"size_button " + (product.selectedSize.value == size.value ? 'active_button_size' : '')}>{size.value}</button> ) }
+                                                            product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } style={{backgroundColor: size.value}} className={"color_button " + (product.selectedSize.value === size.value ? 'active_color_size' : '')}></button> ) :
+                                                            product.attributes[0].items.map(size => <button onClick={() => this.selectedSize(product, size)} key={size.id } className={"size_button " + (product.selectedSize.value === size.value ? 'active_button_size' : '')}>{size.value}</button> ) }
                                                     </div>
                                                 </div>
                                                 <div className="col-6 cart_product">

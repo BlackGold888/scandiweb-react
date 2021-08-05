@@ -63,7 +63,7 @@ class CurrencySwitcher extends React.Component {
         return (
             <div>
                 <ul className="currencyContextMenu">
-                    {this.state.currencies?.currencies.map(cur => <li key={cur} onClick={() => {this.props.currencyChange(cur)}}><a href="#"><CurrencySign currency={cur} /> {cur}</a></li>)}
+                    {this.state.currencies?.currencies.map(cur => <li key={cur} onClick={() => {this.props.currencyChange(cur)}}><span><CurrencySign currency={cur} /> {cur}</span></li>)}
                 </ul>
             </div>
         )

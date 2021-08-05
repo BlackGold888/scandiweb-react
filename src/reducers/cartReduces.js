@@ -38,10 +38,10 @@ const cartReducer = (state = {items: {}, itemsCount: 0}, action) => {
             newItem.selectedSize = action.newSize;
 
             const x = Object.keys(state.items).reduce((newState, oldKey) => {
-                if (newItemKey == oldKey){
+                if (newItemKey === oldKey){
                     newItem.counter += state.items[oldKey].counter;
                     newState[newItemKey] = newItem;
-                }else if(reSizeItemKey == oldKey){
+                }else if(reSizeItemKey === oldKey){
                     newState[newItemKey] = newItem;
                 } else{
                     newState[oldKey] = state.items[oldKey];

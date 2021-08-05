@@ -7,7 +7,7 @@ class ProductsContainer extends Component {
     constructor(...props) {
         super(...props);
         this.state = {
-            currency: "USD"
+            currency: "USD",
         }
         this.getProducts = this.getProducts.bind(this);
         this.renderAllProducts = this.renderAllProducts.bind(this);
@@ -29,6 +29,16 @@ class ProductsContainer extends Component {
                       name
                       category
                       inStock
+                      attributes{
+                        id
+                        type
+                        name
+                        items{
+                          id
+                          displayValue
+                          value
+                        }
+                      }
                       prices{
                         currency
                         amount
@@ -48,19 +58,17 @@ class ProductsContainer extends Component {
 
     renderAllProducts() {
         const products = [];
-        if (this.props.match != undefined) {
+        if (this.props.match !== undefined) {
             this.state.products?.category.products.map(product => {
-                if (product.category == this.props.match.params.category) {
+                if (product.category === this.props.match.params.category) {
                     products.push(product);
                 }
+                return '';
             });
         } else {
-            this.state.products?.category.products.map(product => {
-                products.push(product);
-            });
+            this.state.products?.category.products.map(product => products.push(product));
         }
-        return products.map(product => <div key={product.id} className="col-3"><Product image={product.gallery[0]} title={product.name}
-                                                                       prices={product.prices} id={product.id} inStock={product.inStock}/></div>)
+        return products.map(product => <div key={product.id} className="col-3"><Product product={product}/></div>)
     }
 
     render() {
