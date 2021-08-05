@@ -49,12 +49,12 @@ class Bag extends Component {
 
     setCardPageImageIndexes()
     {
-       return Object.keys(this.props.cart.items).reduce((newItem, key) => {
-            newItem[key] = {
+       return Object.keys(this.props.cart.items).reduce((newImageIndexes, key) => {
+            newImageIndexes[key] = {
                 currentIndex: 0,
                 imageCount: this.props.cart.items[key].gallery.length
             }
-            return newItem;
+            return newImageIndexes;
         }, {})
     }
 
@@ -141,8 +141,8 @@ class Bag extends Component {
                                             </button>
                                         </div>
                                         <div className="product_bag_image">
-                                            <img onClick={() => {this.prevProductImage(key)}} className="bag_image_left_arrow" src={process.env.PUBLIC_URL + '/img/left_arrow.png'} alt=""/>
-                                            <img onClick={() => {this.nextProductImage(key)}} className="bag_image_right_arrow" src={process.env.PUBLIC_URL + '/img/right_arrow.png'} alt=""/>
+                                            <img onClick={() => {this.prevProductImage(key)}} style={this.state.cardPageImageIndexes[key]?.currentIndex === 0 ? {display: "none"} : {}} className="bag_image_left_arrow" src={process.env.PUBLIC_URL + '/img/left_arrow.png'} alt=""/>
+                                            <img onClick={() => {this.nextProductImage(key)}} style={this.state.cardPageImageIndexes[key]?.currentIndex === this.state.cardPageImageIndexes[key]?.imageCount - 1 ? {display: "none"} : {}} className="bag_image_right_arrow" src={process.env.PUBLIC_URL + '/img/right_arrow.png'} alt=""/>
                                             <img className="bag_main_product_image" src={product.gallery[this.getCurrentProductImage(key)]} alt=""/>
                                         </div>
                                     </div>
