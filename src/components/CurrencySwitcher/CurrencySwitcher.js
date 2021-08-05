@@ -55,7 +55,7 @@ class CurrencySwitcher extends React.Component {
 
     showContextMenu() {
         this.props.currencySwitcherAction();
-        this.setState((state, props) => ({
+        this.setState((state) => ({
             active: !state.active
         }));
     }
@@ -63,10 +63,9 @@ class CurrencySwitcher extends React.Component {
     changeCurrency(currency) {
         this.props.currencyChange(currency);
         this.props.currencySwitcherAction();
-        this.setState((state, props) => ({
+        this.setState({
             active: false
-        }));
-        console.log(this.state.active);
+        });
     }
 
     renderCurrencyContextMenu() {

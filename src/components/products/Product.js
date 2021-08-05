@@ -60,7 +60,8 @@ class Product extends Component {
                     style={this.props.product.inStock ? {opacity: "1"} : {opacity: "0"}}
                     className="product_cart_icon" src={process.env.PUBLIC_URL + '/img/cart.png'}
                     alt=""/>
-                {this.props.product.inStock ? <Link to={`/product/${this.props.product.id}`}>
+                {this.props.product.inStock ?
+                    <Link to={`/product/${this.props.product.id}`}>
                         {this.renderProductInfo()}
                     </Link> :
                     <Link to={`/product/${this.props.product.id}`}>

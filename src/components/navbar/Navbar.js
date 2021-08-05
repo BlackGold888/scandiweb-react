@@ -1,6 +1,5 @@
 import React from "react";
 import CurrencySwitcher from "../CurrencySwitcher/CurrencySwitcher";
-import {Link} from "react-router-dom";
 import {NavLink} from "react-router-dom";
 import {gql} from "@apollo/client";
 import Cart from "../cart/Cart";
@@ -55,7 +54,6 @@ class Navbar extends React.Component {
                 activeClassName={"navbar_link_active"}>
                 {category.name}
             </NavLink>)
-        console.log(links)
         return [temp, ...links ?? []];
     }
 

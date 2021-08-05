@@ -27,7 +27,7 @@ class Cart extends Component {
             active: false,
             inMouseOver: false
         }
-        this.renderCartItems = this.renderCartItems.bind(this);
+        this.renderCartContent = this.renderCartContent.bind(this);
         this.setActiveContextMenu = this.setActiveContextMenu.bind(this);
         this.addItem = this.addItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
@@ -40,6 +40,8 @@ class Cart extends Component {
         this.renderTotalProductsPrice = this.renderTotalProductsPrice.bind(this);
         this.renderBagCheckoutButtons = this.renderBagCheckoutButtons.bind(this);
         this.renderProductBox = this.renderProductBox.bind(this);
+        this.renderBagCheckoutButtons = this.renderBagCheckoutButtons.bind(this);
+        this.renderCartItems = this.renderCartItems.bind(this);
     }
 
     addItem(product) {
@@ -69,7 +71,7 @@ class Cart extends Component {
     }
 
     setMouseOver() {
-        this.setState((state, props) => ({
+        this.setState((state) => ({
             inMouseOver: !state.inMouseOver
         }));
     }
@@ -198,35 +200,45 @@ class Cart extends Component {
         )
     }
 
-    renderCartItems() {
+    renderCartItems(){
+        return (
+            <ul className="cart_items_list">
+                <li className="cart_items_list_title">
+                    <b>My Bag,</b> {this.props.cart.itemsCount} items
+                </li>
+                {
+                    Object.keys(this.props.cart.items).map(key => {
+                        let product = this.props.cart.items[key];
+                        return (
+                            <li
+                                className="cart_list_item"
+                                key={product.id + product.selectedSize?.value}>
+                                {this.renderProductBox(product)}
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        )
+    }
+
+    renderCartContent() {
         if (!this.state.active) {
             return "";
         }
         if (Object.keys(this.props.cart).length) {
             return (
-                <div onClick={this.hideActiveContextMenu} className="cart_items">
-                    <div onMouseEnter={this.setMouseOver} onMouseLeave={this.setMouseOver}
-                         className="cart_items_container">
-                        <ul className="cart_items_list">
-                            <li className="cart_items_list_title">
-                                <b>My Bag,</b> {this.props.cart.itemsCount} items
-                            </li>
-                            {
-                                Object.keys(this.props.cart.items).map(key => {
-                                    let product = this.props.cart.items[key];
-                                    return (
-                                        <li
-                                            className="cart_list_item"
-                                            key={product.id + product.selectedSize?.value}>
-                                            {this.renderProductBox(product)}
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
-
-                        {this.renderTotalProductsPrice}
-                        {this.renderBagCheckoutButtons}
+                <div
+                    onClick={this.hideActiveContextMenu}
+                    className="cart_items">
+                    <div
+                        onMouseEnter={this.setMouseOver}
+                        onMouseLeave={this.setMouseOver}
+                        className="cart_items_container"
+                    >
+                        {this.renderCartItems()}
+                        {this.renderTotalProductsPrice()}
+                        {this.renderBagCheckoutButtons()}
                     </div>
                 </div>
             );
@@ -241,7 +253,7 @@ class Cart extends Component {
                 </div>
                 <img onClick={this.setActiveContextMenu} className="navbar_cart_icon"
                      src={process.env.PUBLIC_URL + '/img/cart_navbar.png'} alt=""/>
-                {this.renderCartItems()}
+                {this.renderCartContent()}
             </div>
         );
     }

@@ -127,7 +127,9 @@ class ProductDescription extends Component {
                             key={size.id}
                             className={"size_button " + (this.state.selectedSize.id === size.id ?
                                 "active_button_size" : "")}>{size.value}
-                        </button>)}
+                        </button>
+                    )
+                }
             </div>
         );
     }
@@ -176,18 +178,33 @@ class ProductDescription extends Component {
                 <div className="row">
                     <div className="md">
                         {this.state.product?.gallery.map(image =>
-                            <img key={image} onClick={() => this.renderMainImage(image)}
-                                 className="img-slider" src={image} alt=""/>)}
+                            <img
+                                key={image}
+                                onClick={() => this.renderMainImage(image)}
+                                className="img-slider"
+                                src={image}
+                                alt="Product Thumbnail"
+                            />
+                        )}
                     </div>
                     <div className="col-6">
-                        <img id="mainImage" className="main_img" src={this.state.selectedImage} alt=""/>
+                        <img
+                            id="mainImage"
+                            className="main_img"
+                            src={this.state.selectedImage}
+                            alt="Active product image"
+                        />
                     </div>
                     <div className="col-1 sm">
                         {this.state.product?.gallery.map(image =>
                             <img
                                 key={image}
                                 onClick={() => this.renderMainImage(image)}
-                                className="img-slider" src={image} alt=""/>)}
+                                className="img-slider"
+                                src={image}
+                                alt="Product Thumbnail mobile"
+                            />
+                        )}
                     </div>
                     {this.renderProductInfo()}
                 </div>
