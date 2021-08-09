@@ -113,7 +113,6 @@ class ProductDescription extends Component {
             return '';
         }
 
-
         return (
             <div className="size_section">
                 <p className="size_title"><b>{ this.state.product?.attributes[0]?.name }:</b></p>
