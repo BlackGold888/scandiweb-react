@@ -6,10 +6,20 @@ import Cart from "../cart/Cart";
 import CurrencySign from "../CurrencySign/CurrencySign";
 import {connect} from "react-redux";
 import './Navbar.css'
+import {CartSwitcherAction, CurrencySwitcherAction} from "../../actions";
 
 const mapStateToProps = (props) => {
     return {
         currency: props.currency,
+        currencySwitcherState: props.currencySwitcherReducer,
+        cartSwitcherReducer: props.cartSwitcherReducer,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        currencySwitcherAction:()=> dispatch(CurrencySwitcherAction()),
+        cartSwitcherAction:()=> dispatch(CartSwitcherAction()),
     }
 }
 
@@ -134,11 +144,11 @@ class Navbar extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="navbar_container">
                 {this.renderNavbar()}
             </div>
         );
     }
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

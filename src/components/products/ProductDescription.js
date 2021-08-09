@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {gql} from "@apollo/client";
 import {AddItemToCart} from "../../actions";
 import {connect} from "react-redux";
-import {removeHtmlFromString} from "../../utils/htmlHelpers";
 import CurrencySign from "../CurrencySign/CurrencySign";
 import "./Product.css"
+import parser from 'html-react-parser'
 
 const mapStateToProps = (props) => {
     return {
@@ -58,6 +58,7 @@ class ProductDescription extends Component {
                       amount
                     }
                     attributes{
+                    name
                     items{
                       displayValue
                       value
@@ -68,6 +69,7 @@ class ProductDescription extends Component {
                 }
             `
         });
+
         this.setState(
             {
                 product: temp.data.product,
@@ -111,9 +113,10 @@ class ProductDescription extends Component {
             return '';
         }
 
+
         return (
             <div className="size_section">
-                <p className="size_title"><b>SIZE:</b></p>
+                <p className="size_title"><b>{ this.state.product?.attributes[0]?.name }:</b></p>
                 {this.state.product?.attributes[0]?.items[0].value.includes('#') ?
                     this.state.product?.attributes[0]?.items.map(size =>
                         <button onClick={() => this.selectedSize(size)}
@@ -140,11 +143,6 @@ class ProductDescription extends Component {
         }
         let temp = Object.assign({}, this.state.product)
         temp.selectedSize = this.state.selectedSize ?? this.state.product?.attributes[0]?.items[0];
-        if (temp.selectedSize === undefined) {
-            temp.selectedSize = {
-                displayValue: "40", value: "40", id: "40"
-            };
-        }
         this.props.addItemToCart(temp);
     }
 
@@ -162,11 +160,10 @@ class ProductDescription extends Component {
                     className={this.state.product?.inStock ?
                         "add_cart_button" : "add_cart_button_disabled"}
                     onClick={this.state.product?.inStock ?
-                        this.addItem : () => {
-                        }}>ADD TO CART
+                        this.addItem : () => {}}>ADD TO CART
                 </button>
                 <div className="product_desc">
-                    {removeHtmlFromString(this.state.product?.description)}
+                    {this.state.product?.description ? parser(this.state.product?.description) : ''}
                 </div>
             </div>
         )
@@ -188,12 +185,23 @@ class ProductDescription extends Component {
                         )}
                     </div>
                     <div className="col-6">
-                        <img
-                            id="mainImage"
-                            className="main_img"
-                            src={this.state.selectedImage}
-                            alt="Active product"
-                        />
+                        {!this.state.product?.inStock ?
+                            <div className="inStock_box">
+                                <p className="inStock">OUT OF STOCK</p>
+                                <img
+                                    id="mainImage"
+                                    className="main_img"
+                                    src={this.state.selectedImage}
+                                    alt="Active product"
+                                />
+                            </div> :
+                                <img
+                                    id="mainImage"
+                                    className="main_img"
+                                    src={this.state.selectedImage}
+                                    alt="Active product"
+                                />
+                        }
                     </div>
                     <div className="col-1 sm">
                         {this.state.product?.gallery.map(image =>

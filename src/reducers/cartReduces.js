@@ -2,7 +2,6 @@ const cartReducer = (state = {items: {}, itemsCount: 0}, action) => {
     switch (action.type) {
         case 'ADD':
             const itemId = action.item.id + '-' + action.item.selectedSize?.value;
-
             if (itemId in state.items) {
                 let newItem = {...state.items[itemId]}
                 newItem.counter++;

@@ -41,4 +41,8 @@ export const CurrencySwitcherAction = () =>{
     }
 }
 
-
+export const CartSwitcherAction = () =>{
+    return {
+        type: 'CART_SWITCHER'
+    }
+}

@@ -56,7 +56,7 @@ class Product extends Component {
         return (
             <div id="product" className="product_card">
                 <img
-                    onClick={this.props.product.inStock ? this.addItem : {}}
+                    onClick={this.props.product.inStock ? this.addItem : ()=> {}}
                     style={this.props.product.inStock ? {opacity: "1"} : {opacity: "0"}}
                     className="product_cart_icon" src={process.env.PUBLIC_URL + '/img/cart.png'}
                     alt=""/>

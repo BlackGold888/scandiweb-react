@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import CurrencySign from "../CurrencySign/CurrencySign";
-import {AddItemToCart, RemoveItemFromCart, ResizeItemFromCart} from "../../actions";
+import {
+    AddItemToCart,
+    CartSwitcherAction,
+    CurrencySwitcherAction,
+    RemoveItemFromCart,
+    ResizeItemFromCart
+} from "../../actions";
 import {Link} from "react-router-dom";
 import "./Cart.css"
 
@@ -9,6 +15,8 @@ const mapStateToProps = (props) => {
     return {
         currency: props.currency,
         cart: props.cartStore,
+        cartSwitcherReducer: props.cartSwitcherReducer,
+        currencySwitcherState: props.currencySwitcherReducer,
     }
 }
 
@@ -17,6 +25,8 @@ const mapDispatchToProps = (dispatch) => {
         addItemToCart: (item) => dispatch(AddItemToCart(item)),
         removeItemFromCart: (item) => dispatch(RemoveItemFromCart(item)),
         resizeItemFromCart: (item, newSize) => dispatch(ResizeItemFromCart(item, newSize)),
+        cartSwitcherAction: () => dispatch(CartSwitcherAction()),
+        currencySwitcherAction:()=> dispatch(CurrencySwitcherAction()),
     }
 }
 
@@ -77,18 +87,19 @@ class Cart extends Component {
     }
 
     hideActiveContextMenu() {
-        if (this.state.inMouseOver) {
+        if (!this.state.inMouseOver) {
             this.setState({
                 active: false
             });
         }
     }
 
-    setActiveContextMenu() {
-        this.setState({
-            active: !this.state.active,
-            inMouseOver: true
-        });
+    setActiveContextMenu(event) {
+        event.stopPropagation();
+        this.props.cartSwitcherAction();
+        if (this.props.currencySwitcherState) {
+            this.props.currencySwitcherAction();
+        }
     }
 
     renderProductCartPrice(product) {
@@ -169,13 +180,14 @@ class Cart extends Component {
             <div className="checkout_view_bag_button">
                 <Link to={`/view/bag`}>
                     <button
-                        onClick={() => {
-                            this.setState({active: false})
-                        }}
+                        onClick={this.props.cartSwitcherAction}
                         className="viewBag">VIEW BAG
                     </button>
                 </Link>
-                <button className="checkout">CHECKOUT</button>
+                <button
+                    className="checkout"
+                    onClick={this.props.cartSwitcherAction}
+                >CHECKOUT</button>
             </div>
         )
     }
@@ -202,7 +214,7 @@ class Cart extends Component {
 
     renderCartItems(){
         return (
-            <ul className="cart_items_list">
+            <ul className="cart_items_list" >
                 <li className="cart_items_list_title">
                     <b>My Bag,</b> {this.props.cart.itemsCount} items
                 </li>
@@ -222,19 +234,22 @@ class Cart extends Component {
         )
     }
 
+    preventClose(event)
+    {
+        event.stopPropagation();
+    }
+
     renderCartContent() {
-        if (!this.state.active) {
-            return "";
+        if (!this.props.cartSwitcherReducer) {
+            return null;
         }
         if (Object.keys(this.props.cart).length) {
             return (
                 <div
-                    onClick={this.hideActiveContextMenu}
                     className="cart_items">
                     <div
-                        onMouseEnter={this.setMouseOver}
-                        onMouseLeave={this.setMouseOver}
                         className="cart_items_container"
+                        onClick={this.preventClose}
                     >
                         {this.renderCartItems()}
                         {this.renderTotalProductsPrice()}

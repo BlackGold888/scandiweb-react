@@ -6,7 +6,7 @@ import ProductsContainer from "./components/products/ProductsContainer";
 import ProductDescription from "./components/products/ProductDescription";
 import Bag from "./components/Bag/Bag";
 import "./App.css"
-import {CurrencySwitcherAction} from "./actions";
+import {CurrencySwitcherAction, CartSwitcherAction} from "./actions";
 import {connect} from "react-redux";
 
 
@@ -14,12 +14,14 @@ const mapStateToProps = (props) => {
     return {
         currency: props.currency,
         currencySwitcherState: props.currencySwitcherReducer,
+        cartSwitcherReducer: props.cartSwitcherReducer,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         currencySwitcherAction:()=> dispatch(CurrencySwitcherAction()),
+        cartSwitcherAction:()=> dispatch(CartSwitcherAction()),
     }
 }
 
@@ -33,20 +35,24 @@ class App extends React.Component {
             }),
             currency: 'USD'
         }
-        this.setCurrencySwitcherState = this.setCurrencySwitcherState.bind(this);
+        this.setCurrencyCartSwitcherState = this.setCurrencyCartSwitcherState.bind(this);
     }
 
 
-    setCurrencySwitcherState() {
+    setCurrencyCartSwitcherState() {
         if (this.props.currencySwitcherState) {
             this.props.currencySwitcherAction();
+        }
+
+        if (this.props.cartSwitcherReducer) {
+            this.props.cartSwitcherAction();
         }
     }
 
     render() {
         return (
             <Router>
-                <div className="App" onClick={this.setCurrencySwitcherState}>
+                <div className="App" onClick={this.setCurrencyCartSwitcherState}>
                     <Navbar client={this.state.client} />
                     <Switch>
                         <Route path="/:category" exact render={(props) => <ProductsContainer {...props} client={this.state.client} />}>
